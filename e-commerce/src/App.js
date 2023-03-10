@@ -10,10 +10,13 @@ import SearchBar from "./components/SearchBar";
 import { useState } from "react";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
+import { Search } from "react-bootstrap-icons";
+import SearchResult from "./components/search";
 
 function App() {
   const [wishlist, setWishlist] = useState([]);
   const [basket, setBasket] = useState([]);
+  const [searchResult, setSearchResult] = useState('')
   return (
     <div>
       <div id="product-container" className="container">
@@ -24,6 +27,8 @@ function App() {
           setWishlist={setWishlist}
           basket={basket}
           setBasket={setBasket}
+          searchResult={searchResult}
+          setSearchResult={setSearchResult}
         />
       </div>
 
@@ -41,6 +46,8 @@ function App() {
             }
           ></Route>
           <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/search" element={<SearchResult
+            searchResult={searchResult} />}></Route>
           <Route
             path="/productDetails/:id"
             element={<ProductDetails

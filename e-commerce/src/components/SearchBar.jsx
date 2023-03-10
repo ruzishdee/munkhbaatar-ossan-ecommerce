@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -9,7 +9,7 @@ export default function SearchBar(props) {
   const notifyBasketRemove = (title) => toast.error(title + "-г сагснаас амжилттай устгалаа.! ", {
     icon: <i class="bi bi-trash3"></i>
   });
-
+  const navigate = useNavigate()
   const notifyWishlistRemove = (title) => toast.error(title + "-г Wislist-ээс амжилттай устгалаа .! ", {
     icon: <i class="bi bi-trash3"></i>
   });
@@ -57,17 +57,26 @@ export default function SearchBar(props) {
           </div>
 
           <div className="col-6 col-md-4 d-none d-md-block">
-            <div className="input-group">
-              <input
-                type="search"
-                className="form-control rounded"
-                placeholder="Search"
-                aria-label="Search"
-                aria-describedby="search-addon"
-              />
-              <button type="button" className="btn btn-warning">
-                search
-              </button>
+
+            <div >
+              <form className="input-group" onSubmit={(e) => {
+                e.preventDefault()
+                console.log('value', props.searchResult)
+                navigate('/search', { state: { value: props.searchResult } })
+              }}>
+                <input
+                  type="search"
+                  className="form-control rounded"
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="search-addon"
+                  value={props.searchResult}
+                  onChange={(e) => props.setSearchResult(e.target.value)}
+                />
+                <button type="submit" className="btn btn-warning">
+                  search
+                </button>
+              </form>
             </div>
           </div>
 
